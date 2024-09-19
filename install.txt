@@ -1,0 +1,35 @@
+# Update package list
+sudo apt update
+
+# Install Python and virtual environment
+sudo apt install python3-pip python3-venv
+
+# Install Node.js and npm
+sudo apt install nodejs npm
+
+# Install ROS2 (Assuming Humble Hawksbill)
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+sudo apt update
+sudo apt install ros-humble-desktop
+
+# Source ROS2 setup script
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+
+robot_ui/
+├── public/
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── Navbar.js
+│   │   ├── MapView.js
+│   │   ├── ControlPage.js
+│   │   ├── SettingsPage.js
+│   │   └── SchedulingPage.js
+│   ├── App.js
+│   ├── index.js
+│   └── styles/
+│       └── styles.css
+├── package.json
+└── ...
