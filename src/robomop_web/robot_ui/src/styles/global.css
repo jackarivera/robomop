@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fa;
+  }
+  
+  h2 {
+    color: #1565c0;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  

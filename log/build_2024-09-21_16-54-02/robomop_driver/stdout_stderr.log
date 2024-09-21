@@ -1,0 +1,41 @@
+running develop
+/usr/lib/python3/dist-packages/setuptools/command/develop.py:40: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+Removing /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop-driver.egg-link (link to .)
+running egg_info
+writing ../../build/robomop_driver/robomop_driver.egg-info/PKG-INFO
+writing dependency_links to ../../build/robomop_driver/robomop_driver.egg-info/dependency_links.txt
+writing requirements to ../../build/robomop_driver/robomop_driver.egg-info/requires.txt
+writing top-level names to ../../build/robomop_driver/robomop_driver.egg-info/top_level.txt
+reading manifest file '../../build/robomop_driver/robomop_driver.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/robomop_driver/robomop_driver.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/robomop/robomop_ws/build/robomop_driver/build
+creating /home/robomop/robomop_ws/build/robomop_driver/build/lib
+creating /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver
+copying robomop_driver/__init__.py -> /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver
+running install
+running install_lib
+creating /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver
+copying /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver/__init__.py -> /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver
+byte-compiling /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver/__init__.py to __init__.cpython-312.pyc
+running install_data
+copying resource/robomop_driver -> /home/robomop/robomop_ws/install/robomop_driver/share/ament_index/resource_index/packages
+copying package.xml -> /home/robomop/robomop_ws/install/robomop_driver/share/robomop_driver
+running install_egg_info
+Copying ../../build/robomop_driver/robomop_driver.egg-info to /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver-0.0.0-py3.12.egg-info
+running install_scripts
+writing list of installed files to '/home/robomop/robomop_ws/build/robomop_driver/install.log'

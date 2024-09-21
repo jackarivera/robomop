@@ -1,0 +1,48 @@
+-- The C compiler identification is GNU 13.2.0
+-- The CXX compiler identification is GNU 13.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.2 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found ament_lint_auto: 0.17.1 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Configured 'flake8' exclude dirs and/or files: 
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done (2.6s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/robomop/robomop_ws/build/robomop_description
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/launch/view_robomop.launch.py
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/meshes/visual/robomop_assy.stl
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/rviz/robomop.rviz
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/urdf/common/inertials.xacro
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/urdf/common/materials.xacro
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/urdf/robomop.urdf.xacro
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/urdf/robomop/robomop_macro.xacro
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/ament_index/resource_index/package_run_dependencies/robomop_description
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/ament_index/resource_index/parent_prefix_path/robomop_description
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/environment/ament_prefix_path.sh
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/environment/ament_prefix_path.dsv
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/environment/path.sh
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/environment/path.dsv
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/local_setup.bash
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/local_setup.sh
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/local_setup.zsh
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/local_setup.dsv
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/package.dsv
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/ament_index/resource_index/packages/robomop_description
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/cmake/robomop_descriptionConfig.cmake
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/cmake/robomop_descriptionConfig-version.cmake
+-- Symlinking: /home/robomop/robomop_ws/install/robomop_description/share/robomop_description/package.xml

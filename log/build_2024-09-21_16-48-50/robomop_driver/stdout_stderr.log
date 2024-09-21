@@ -1,0 +1,33 @@
+running develop
+/usr/lib/python3/dist-packages/setuptools/command/develop.py:40: EasyInstallDeprecationWarning: easy_install command is deprecated.
+!!
+
+        ********************************************************************************
+        Please avoid running ``setup.py`` and ``easy_install``.
+        Instead, use pypa/build, pypa/installer or other
+        standards-based tools.
+
+        See https://github.com/pypa/setuptools/issues/917 for details.
+        ********************************************************************************
+
+!!
+  easy_install.initialize_options(self)
+running egg_info
+creating robomop_driver.egg-info
+writing robomop_driver.egg-info/PKG-INFO
+writing dependency_links to robomop_driver.egg-info/dependency_links.txt
+writing requirements to robomop_driver.egg-info/requires.txt
+writing top-level names to robomop_driver.egg-info/top_level.txt
+writing manifest file 'robomop_driver.egg-info/SOURCES.txt'
+reading manifest file 'robomop_driver.egg-info/SOURCES.txt'
+writing manifest file 'robomop_driver.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop-driver.egg-link (link to .)
+
+Installed /home/robomop/robomop_ws/build/robomop_driver
+running symlink_data
+creating /home/robomop/robomop_ws/install/robomop_driver/share/ament_index
+creating /home/robomop/robomop_ws/install/robomop_driver/share/ament_index/resource_index
+creating /home/robomop/robomop_ws/install/robomop_driver/share/ament_index/resource_index/packages
+symbolically linking /home/robomop/robomop_ws/build/robomop_driver/resource/robomop_driver -> /home/robomop/robomop_ws/install/robomop_driver/share/ament_index/resource_index/packages
+symbolically linking /home/robomop/robomop_ws/build/robomop_driver/package.xml -> /home/robomop/robomop_ws/install/robomop_driver/share/robomop_driver

@@ -1,0 +1,45 @@
+[3.168s] Invoking command in '/home/robomop/robomop_ws/build/robomop_driver': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/robomop/robomop_ws/build/robomop_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/robomop/robomop_ws/build/robomop_driver/build
+[3.791s] running develop
+[3.791s] /usr/lib/python3/dist-packages/setuptools/command/develop.py:40: EasyInstallDeprecationWarning: easy_install command is deprecated.
+[3.791s] !!
+[3.791s] 
+[3.791s]         ********************************************************************************
+[3.792s]         Please avoid running ``setup.py`` and ``easy_install``.
+[3.792s]         Instead, use pypa/build, pypa/installer or other
+[3.792s]         standards-based tools.
+[3.792s] 
+[3.792s]         See https://github.com/pypa/setuptools/issues/917 for details.
+[3.792s]         ********************************************************************************
+[3.792s] 
+[3.792s] !!
+[3.792s]   easy_install.initialize_options(self)
+[4.195s] Removing /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop-driver.egg-link (link to .)
+[4.355s] Invoked command in '/home/robomop/robomop_ws/build/robomop_driver' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/robomop/robomop_ws/build/robomop_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py develop --uninstall --editable --build-directory /home/robomop/robomop_ws/build/robomop_driver/build
+[4.358s] Invoking command in '/home/robomop/robomop_ws/src/robomop_driver': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/robomop/robomop_ws/build/robomop_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/robomop_driver build --build-base /home/robomop/robomop_ws/build/robomop_driver/build install --record /home/robomop/robomop_ws/build/robomop_driver/install.log --single-version-externally-managed install_data --force
+[4.877s] running egg_info
+[4.913s] writing ../../build/robomop_driver/robomop_driver.egg-info/PKG-INFO
+[4.914s] writing dependency_links to ../../build/robomop_driver/robomop_driver.egg-info/dependency_links.txt
+[4.915s] writing requirements to ../../build/robomop_driver/robomop_driver.egg-info/requires.txt
+[4.915s] writing top-level names to ../../build/robomop_driver/robomop_driver.egg-info/top_level.txt
+[4.977s] reading manifest file '../../build/robomop_driver/robomop_driver.egg-info/SOURCES.txt'
+[4.977s] adding license file 'LICENSE'
+[4.978s] writing manifest file '../../build/robomop_driver/robomop_driver.egg-info/SOURCES.txt'
+[4.978s] running build
+[4.978s] running build_py
+[4.978s] creating /home/robomop/robomop_ws/build/robomop_driver/build
+[4.978s] creating /home/robomop/robomop_ws/build/robomop_driver/build/lib
+[4.979s] creating /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver
+[4.980s] copying robomop_driver/__init__.py -> /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver
+[4.980s] running install
+[4.992s] running install_lib
+[5.024s] creating /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver
+[5.025s] copying /home/robomop/robomop_ws/build/robomop_driver/build/lib/robomop_driver/__init__.py -> /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver
+[5.025s] byte-compiling /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver/__init__.py to __init__.cpython-312.pyc
+[5.026s] running install_data
+[5.026s] copying resource/robomop_driver -> /home/robomop/robomop_ws/install/robomop_driver/share/ament_index/resource_index/packages
+[5.026s] copying package.xml -> /home/robomop/robomop_ws/install/robomop_driver/share/robomop_driver
+[5.026s] running install_egg_info
+[5.057s] Copying ../../build/robomop_driver/robomop_driver.egg-info to /home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages/robomop_driver-0.0.0-py3.12.egg-info
+[5.058s] running install_scripts
+[5.289s] writing list of installed files to '/home/robomop/robomop_ws/build/robomop_driver/install.log'
+[5.402s] Invoked command in '/home/robomop/robomop_ws/src/robomop_driver' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/robomop/robomop_ws/build/robomop_driver/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/robomop/robomop_ws/install/robomop_driver/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/robomop_driver build --build-base /home/robomop/robomop_ws/build/robomop_driver/build install --record /home/robomop/robomop_ws/build/robomop_driver/install.log --single-version-externally-managed install_data --force

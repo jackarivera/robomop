@@ -1,0 +1,1 @@
+/home/robomop/robomop_ws/build/robomop_navigation/ament_cmake_core/robomop_navigationConfig.cmake
