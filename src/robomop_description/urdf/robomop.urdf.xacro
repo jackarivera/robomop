@@ -14,14 +14,14 @@
         <visual>
             <origin xyz="0.01 0.02 0" rpy="0 -0 1.5708" />
             <geometry>
-                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_assy.stl"/>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_shell.stl" scale="0.001 0.001 0.001"/>
             </geometry>
         </visual>
 
         <collision>
             <origin xyz="0.01 0.02 0" rpy="0 -0 1.5708" />
             <geometry>
-                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_assy.stl"/>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_shell.stl" scale="0.001 0.001 0.001"/>
             </geometry>
         </collision>
 
@@ -31,26 +31,20 @@
             <inertia ixx="0.006453" ixy="0"  ixz="0" iyy="0.0117" iyz="0" izz="0.015812" />
         </inertial>
     </link>
-
-    <joint name="base_to_chassis" type="fixed">
-        <parent link="base_link"/>
-        <child link="chassis_link"/>
-        <origin xyz="0 0 0.0965"/>
-    </joint>
-
+    
     <link name="rl_wheel_link">
         <visual>
             <origin xyz="0 0 0" rpy="1.57 3.1415 0" />
-            <!-- <geometry>
-                <mesh filename="file://$(find roverrobotics_description)/meshes/hub_6.5in.dae"/>
-            </geometry> -->
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
         </visual>
 
         <collision>
             <origin xyz="0 0 0" rpy="1.57 3.1415 0" />
-            <!-- <geometry>
-                <mesh filename="file://$(find roverrobotics_description)/meshes/hub_6.5in.dae"/>
-            </geometry> -->
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
         </collision>
 
         <inertial>
@@ -60,26 +54,20 @@
         </inertial>
         <mu>5.0</mu>
     </link>
-    <joint name="rl_wheel_to_chassis" type="continuous">
-        <parent link="base_link"/>
-        <child link="rl_wheel_link"/>
-        <axis xyz="0 1 0"/>
-        <origin xyz="${-wheel_x_offset} ${wheel_y_offset} ${wheel_z_offset}"/>
-    </joint>
 
     <link name="rr_wheel_link">
         <visual>
             <origin xyz="0 0 0" rpy="1.57 3.1415 3.1415" />
-            <!-- <geometry>
-                <mesh filename="file://$(find roverrobotics_description)/meshes/hub_6.5in.dae"/>
-            </geometry> -->
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
         </visual>
 
         <collision>
             <origin xyz="0 0 0" rpy="1.57 3.1415 3.1415" />
-            <!-- <geometry>
-                <mesh filename="file://$(find roverrobotics_description)/meshes/hub_6.5in.dae"/>
-            </geometry> -->
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
         </collision>
 
         <inertial>
@@ -89,11 +77,25 @@
         </inertial>
         <mu>5.0</mu>
     </link>
-    <joint name="rr_wheel_to_chassis" type="continuous">
+
+    <joint name="base_to_chassis" type="fixed">
         <parent link="base_link"/>
+        <child link="chassis_link"/>
+        <origin xyz="0 0 0.1"/>
+    </joint>
+
+    <joint name="rl_wheel_to_chassis" type="continuous">
+        <parent link="chassis_link"/>
+        <child link="rl_wheel_link"/>
+        <axis xyz="0 1 0"/>
+        <origin xyz="0 0 0"/>
+    </joint>
+
+    <joint name="rr_wheel_to_chassis" type="continuous">
+        <parent link="chassis_link"/>
         <child link="rr_wheel_link"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="${-wheel_x_offset} ${-wheel_y_offset} ${wheel_z_offset}"/>
+        <origin xyz="0 0 0"/>
     </joint>
 
     <gazebo>
