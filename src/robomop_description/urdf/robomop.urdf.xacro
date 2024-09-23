@@ -1,25 +1,29 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robomop">
 
     <!-- Robot Parameters -->
-    <xacro:property name="wheel_z_offset" value="-0.0155" />
-    <xacro:property name="wheel_x_offset" value="0.11" />
-    <xacro:property name="front_wheel_x_offset" value="0.006" />
-    <xacro:property name="wheel_y_offset" value="0.155" />
+    <xacro:property name="wheel_x_offset" value="-0.062" />
+    <xacro:property name="wheel_y_offset" value="0.175" /> 
+    <xacro:property name="wheel_z_offset" value="0.043" />
     <xacro:property name="wheel_mass" value="3.62874" />
     <xacro:property name="chassis_mass" value="1.36078" />
 
-    <!-- Robot Description -->
+    <!-- Xacro Common Files -->
+    <xacro:include filename="$(find robomop_description)/urdf/common/inertials.xacro" />
+    <xacro:include filename="$(find robomop_description)/urdf/common/materials.xacro" />
+
+    <!-- Robot Links -->
     <link name="base_link" />
     <link name="chassis_link">
         <visual>
-            <origin xyz="0.01 0.02 0" rpy="0 -0 1.5708" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_shell.stl" scale="0.001 0.001 0.001"/>
             </geometry>
+            <material name="light_grey" />
         </visual>
 
         <collision>
-            <origin xyz="0.01 0.02 0" rpy="0 -0 1.5708" />
+            <origin xyz="0.0 0.0 0" rpy="0 0 0" />
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_shell.stl" scale="0.001 0.001 0.001"/>
             </geometry>
@@ -34,14 +38,15 @@
     
     <link name="rl_wheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="1.57 3.1415 0" />
+            <origin xyz="0 0 0"/>
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
             </geometry>
+            <material name="white" />
         </visual>
 
         <collision>
-            <origin xyz="0 0 0" rpy="1.57 3.1415 0" />
+            <origin xyz="0 0 0"/>
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
             </geometry>
@@ -57,14 +62,15 @@
 
     <link name="rr_wheel_link">
         <visual>
-            <origin xyz="0 0 0" rpy="1.57 3.1415 3.1415" />
+            <origin xyz="0 0 0"/>
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
             </geometry>
+            <material name="white" />
         </visual>
 
         <collision>
-            <origin xyz="0 0 0" rpy="1.57 3.1415 3.1415" />
+            <origin xyz="0 0 0"/>
             <geometry>
                 <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_wheel.stl" scale="0.001 0.001 0.001"/>
             </geometry>
@@ -78,24 +84,34 @@
         <mu>5.0</mu>
     </link>
 
+    <!-- Lidar Link -->
+    <xacro:include filename="$(find ldlidar_node)/urdf/ldlidar_descr.urdf.xml" />
+
+    <!-- Joints -->
     <joint name="base_to_chassis" type="fixed">
         <parent link="base_link"/>
         <child link="chassis_link"/>
-        <origin xyz="0 0 0.1"/>
+        <origin xyz="0 0 ${0.006 + 0.018}"/>
     </joint>
 
     <joint name="rl_wheel_to_chassis" type="continuous">
         <parent link="chassis_link"/>
         <child link="rl_wheel_link"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="0 0 0"/>
+        <origin xyz="${wheel_x_offset} ${wheel_y_offset} ${wheel_z_offset}" rpy="0 0 0" />
     </joint>
 
     <joint name="rr_wheel_to_chassis" type="continuous">
         <parent link="chassis_link"/>
         <child link="rr_wheel_link"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="0 0 0"/>
+        <origin xyz="${wheel_x_offset} ${-wheel_y_offset - 0.022} ${wheel_z_offset}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="lidar_to_chassis" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="ldlidar_base"/>
+        <origin xyz="0.019 0 0.138" rpy="0 0 0" />
     </joint>
 
     <gazebo>
@@ -128,6 +144,9 @@
         <plugin filename="ignition-gazebo-joint-state-publisher-system" name="ignition::gazebo::systems::JointStatePublisher">
             <topic>/joint_states</topic>
         </plugin>
+        <plugin filename="libignition-gazebo-sensors-system.so" name="ignition::gazebo::systems::Sensors">
+            <render_engine>ogre2</render_engine>
+        </plugin>
     </gazebo>
 
     <gazebo reference="rl_wheel_link">
@@ -143,6 +162,36 @@
         <kp  value="1000000.0" />
         <kd  value="1.0" />
         <minDepth>0.005</minDepth>
+    </gazebo>
+    <gazebo reference="ldlidar_base">
+        <sensor name='gpu_lidar' type='gpu_lidar'>
+            <pose>0 0 0 0 0 0</pose>
+            <topic>scan</topic>
+            <ignition_frame_id>ldlidar_base</ignition_frame_id>
+            <update_rate>10</update_rate>
+            <lidar>
+                <scan>
+                <horizontal>
+                    <samples>640</samples>
+                    <resolution>1</resolution>
+                    <min_angle>-3.14159</min_angle>
+                    <max_angle>3.14159</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>1</samples>
+                    <resolution>1</resolution>
+                    <min_angle>0.0</min_angle>
+                    <max_angle>0.0</max_angle>
+                </vertical>
+                </scan>
+                <range>
+                <min>0.15</min>
+                <max>12.0</max>
+                <resolution>0.01</resolution>
+                </range>
+            </lidar>
+            <visualize>true</visualize>
+        </sensor>
     </gazebo>
 
 </robot>
