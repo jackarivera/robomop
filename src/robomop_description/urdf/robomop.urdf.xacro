@@ -84,6 +84,74 @@
         <mu>5.0</mu>
     </link>
 
+    <link name="right_brush">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_brush.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="dark_grey" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_brush.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="left_brush">
+        <visual>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_brush.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="dark_grey" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_brush.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="caster_housing">
+        <visual>
+            <origin xyz="0 ${0.047/2} 0" rpy="0 3.14 1.57"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_caster.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="grey" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 ${0.047/2} 0" rpy="0 3.14 1.57"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_caster.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="caster_wheel">
+        <visual>
+            <origin xyz="${(-23.619)/1000} ${16.211/1000} ${(-13.5)/1000}"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_caster_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="grey" />
+        </visual>
+
+        <collision>
+            <origin xyz="0 0 0"/>
+            <geometry>
+                <mesh filename="file://$(find robomop_description)/meshes/visual/robomop_caster_wheel.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
     <!-- Lidar Link -->
     <xacro:include filename="$(find ldlidar_node)/urdf/ldlidar_descr.urdf.xml" />
 
@@ -106,6 +174,32 @@
         <child link="rr_wheel_link"/>
         <axis xyz="0 1 0"/>
         <origin xyz="${wheel_x_offset} ${-wheel_y_offset - 0.022} ${wheel_z_offset}" rpy="0 0 0" />
+    </joint>
+    
+    <joint name="right_brush_to_chassis" type="continuous">
+        <parent link="chassis_link"/>
+        <child link="right_brush"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0.1067 -0.0762 -0.016" rpy="0 0 0" />
+    </joint>
+
+    <joint name="left_brush_to_chassis" type="continuous">
+        <parent link="chassis_link"/>
+        <child link="left_brush"/>
+        <axis xyz="0 0 1"/>
+        <origin xyz="0.1067 0.0762 -0.016" rpy="0 0 0" />
+    </joint>
+
+    <joint name="caster_housing_to_chassis" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="caster_housing"/>
+        <origin xyz="${(149.9 - 23.62)/1000} ${0} ${(-14.00)/1000}" rpy="0 0 0" />
+    </joint>
+
+    <joint name="caster_wheel_to_housing" type="fixed">
+        <parent link="caster_housing"/>
+        <child link="caster_wheel"/>
+        <origin xyz="${16.211/1000} 0 ${(-13)/1000}" rpy="0 0 0" />
     </joint>
 
     <joint name="lidar_to_chassis" type="fixed">
