@@ -1,56 +1,48 @@
 .control-page {
-    padding: 1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.camera-feed img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  background-color: #b0bec5;
+}
+
+.joystick-container {
+  margin: 1em 0;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.control-buttons button {
+  background-color: #1e88e5;
+  color: white;
+  border: none;
+  padding: 0.75em 1.5em;
+  margin: 0.5em 0;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.control-buttons button:hover {
+  background-color: #1565c0;
+}
+
+/* Responsive Styles */
+@media (min-width: 600px) {
+  .control-buttons {
+    flex-direction: row;
   }
-  
-  .camera-feed img {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    background-color: #b0bec5;
+
+  .control-buttons button {
+    margin: 0 0.5em;
   }
-  
-  .manual-controls {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1em;
-  }
-  
-  .manual-controls button {
-    background-color: #1e88e5;
-    color: white;
-    border: none;
-    padding: 0.75em 1.5em;
-    margin: 0.5em 0;
-    border-radius: 4px;
-    font-size: 1em;
-  }
-  
-  .manual-controls .control-buttons {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .manual-controls .control-buttons button {
-    margin: 0 1em;
-  }
-  
-  /* Responsive Styles */
-  @media (min-width: 600px) {
-    .manual-controls {
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .manual-controls button {
-      margin: 0 0.5em;
-    }
-  
-    .manual-controls .control-buttons {
-      flex-direction: column;
-    }
-  }
-  
+}

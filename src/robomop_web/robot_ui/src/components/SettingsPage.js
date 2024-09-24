@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/SettingsPage.css';
+import axios from 'axios';
 
 function SettingsPage() {
-  const [cleaningMode, setCleaningMode] = useState('Standard');
-  const [preferences, setPreferences] = useState({
+  const [settings, setSettings] = useState({
+    cleaning_mode: 'Standard',
     volume: 50,
     notifications: true,
   });
 
+  useEffect(() => {
+    // Fetch settings from backend
+    axios
+      .get('http://localhost:5000/api/settings')
+      .then((response) => {
+        setSettings(response.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching settings:', error);
+      });
+  }, []);
+
   const handleSave = () => {
-    // Implement save logic
-    alert('Settings saved!');
+    // Save settings to backend
+    axios
+      .post('http://localhost:5000/api/settings', settings)
+      .then((response) => {
+        alert('Settings saved!');
+      })
+      .catch((error) => {
+        console.error('Error saving settings:', error);
+      });
   };
 
   return (
@@ -19,8 +39,10 @@ function SettingsPage() {
       <div className="settings-section">
         <h3>Cleaning Modes</h3>
         <select
-          value={cleaningMode}
-          onChange={(e) => setCleaningMode(e.target.value)}
+          value={settings.cleaning_mode}
+          onChange={(e) =>
+            setSettings({ ...settings, cleaning_mode: e.target.value })
+          }
         >
           <option value="Standard">Standard</option>
           <option value="Eco">Eco</option>
@@ -35,9 +57,9 @@ function SettingsPage() {
             type="range"
             min="0"
             max="100"
-            value={preferences.volume}
+            value={settings.volume}
             onChange={(e) =>
-              setPreferences({ ...preferences, volume: e.target.value })
+              setSettings({ ...settings, volume: parseInt(e.target.value) })
             }
           />
         </label>
@@ -45,9 +67,9 @@ function SettingsPage() {
           Notifications:
           <input
             type="checkbox"
-            checked={preferences.notifications}
+            checked={settings.notifications}
             onChange={(e) =>
-              setPreferences({ ...preferences, notifications: e.target.checked })
+              setSettings({ ...settings, notifications: e.target.checked })
             }
           />
         </label>

@@ -12,9 +12,9 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<MapView />} />
+        <Route path="/scheduling" element={<SchedulingPage />} />
         <Route path="/control" element={<ControlPage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/scheduling" element={<SchedulingPage />} />
       </Routes>
     </Router>
   );
