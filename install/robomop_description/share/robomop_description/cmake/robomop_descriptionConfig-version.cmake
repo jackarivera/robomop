@@ -1,1 +1,0 @@
-/home/robmop-dev/robomop_ws/robomop/build/robomop_description/ament_cmake_core/robomop_descriptionConfig-version.cmake

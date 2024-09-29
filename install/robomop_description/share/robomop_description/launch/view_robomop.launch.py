@@ -1,1 +1,0 @@
-/home/robmop-dev/robomop_ws/robomop/src/robomop_description/launch/view_robomop.launch.py
