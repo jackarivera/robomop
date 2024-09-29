@@ -1,0 +1,19 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
+      left_wheel_names: ["rl_wheel_to_chassis"]
+      right_wheel_names: ["rr_wheel_to_chassis"]
+      publish_rate: 50
+      cmd_vel_timeout: 0.5
+      pose_covariance_diagonal: [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.001]
+      twist_covariance_diagonal: [0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.0, 0.0, 0.0, 0.001]
+      enable_odom_tf: true
+      use_stamped_vel: false
+      wheel_separation: 0.26
+      wheel_radius: 0.08

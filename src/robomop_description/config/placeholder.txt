@@ -1,0 +1,1 @@
+This is simply a placeholder file to ensure the config folder is pushed to github

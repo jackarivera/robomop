@@ -1,0 +1,24 @@
+# apt packages
+apt: ros-jazzy-desktop
+apt: ros-jazzy-navigation
+apt: ros-jazzy-slam
+apt: ros-jazzy-teleop-twist-keyboard
+apt: ros-jazzy-ros2-control
+apt: ros-jazzy-ros2-controllers
+apt: ros-jazzy-ros2-controller-manager
+apt: ros-jazzy-diff-drive-controller
+apt: ros-jazzy-gazebo-ros-pkgs
+apt: ros-jazzy-ros_gz-plugins
+apt: ros-jazzy-ros_gz-bridge
+apt: git
+apt: build-essential
+apt: python3-pip
+
+# pip packages
+pip: numpy
+pip: opencv-python
+pip: rpi.gpio  # Only necessary for Raspberry Pi
+
+# snap packages
+snap: vscode --classic
+
