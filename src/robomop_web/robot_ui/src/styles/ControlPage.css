@@ -1,48 +1,43 @@
 .control-page {
   padding: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.camera-feed img {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  background-color: #b0bec5;
+  text-align: center;
 }
 
 .joystick-container {
-  margin: 1em 0;
+  display: inline-block;
+  margin-bottom: 2em;
 }
 
-.control-buttons {
+.control-elements {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.control-buttons button {
-  background-color: #1e88e5;
-  color: white;
-  border: none;
-  padding: 0.75em 1.5em;
-  margin: 0.5em 0;
-  border-radius: 4px;
+.slider-container,
+.toggle-container {
+  margin: 1em 0;
+}
+
+#brush-motor-slider {
+  width: 300px;
+}
+
+.toggle-button {
+  padding: 0.5em 1em;
   font-size: 1em;
+  margin-top: 0.5em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.control-buttons button:hover {
-  background-color: #1565c0;
+.toggle-button.on {
+  background-color: #28a745;
+  color: #fff;
 }
 
-/* Responsive Styles */
-@media (min-width: 600px) {
-  .control-buttons {
-    flex-direction: row;
-  }
-
-  .control-buttons button {
-    margin: 0 0.5em;
-  }
+.toggle-button.off {
+  background-color: #dc3545;
+  color: #fff;
 }

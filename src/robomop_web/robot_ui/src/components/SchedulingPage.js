@@ -12,7 +12,7 @@ function SchedulingPage() {
 
   const fetchSchedules = () => {
     axios
-      .get('http://localhost:5000/api/schedules')
+      .get('http://127.0.0.1:5000/api/schedules')
       .then((response) => {
         setSchedules(response.data);
       })
@@ -28,7 +28,7 @@ function SchedulingPage() {
 
     if (time && days.length > 0) {
       axios
-        .post('http://localhost:5000/api/schedules', { time, days })
+        .post('http://127.0.0.1:5000/api/schedules', { time, days })
         .then((response) => {
           fetchSchedules();
         })
@@ -40,7 +40,7 @@ function SchedulingPage() {
 
   const handleDeleteSchedule = (id) => {
     axios
-      .delete(`http://localhost:5000/api/schedules/${id}`)
+      .delete(`http://127.0.0.1:5000/api/schedules/${id}`)
       .then((response) => {
         fetchSchedules();
       })
