@@ -38,7 +38,7 @@ function ControlPage() {
         angular: {
           x: pumpMotorOnRef.current ? 1 : 0,
           y: 0,
-          z: clampedAngularZ,
+          z: -clampedAngularZ,
         },
       });
 

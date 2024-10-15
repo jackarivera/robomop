@@ -79,7 +79,7 @@ def generate_launch_description():
     ld.add_action(declare_node_name_cmd)
 
     # Launch Nav2 Lifecycle Manager
-    ld.add_action(rsp_node)
+    #ld.add_action(rsp_node)
 
     # LDLidar Lifecycle node
     ld.add_action(ldlidar_node)

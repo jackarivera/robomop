@@ -68,7 +68,7 @@ def generate_launch_description():
     ld.add_action(declare_node_name_cmd)
 
     # Launch Nav2 Lifecycle Manager
-    ld.add_action(rviz2_node)
+    #ld.add_action(rviz2_node)
 
     # Call LDLidar launch
     ld.add_action(ldlidar_launch)
