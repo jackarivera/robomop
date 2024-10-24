@@ -15,4 +15,4 @@ source /home/robomop/robomop_ws/install/setup.bash
 # export MY_VAR=some_value
 
 # Launch the robomop_driver node
-ros2 run robomop_driver robomop_driver
+ros2 launch robomop_navigation robomop_driver.launch.py

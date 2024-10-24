@@ -23,6 +23,17 @@ def generate_launch_description():
                 {'wheel_base': 0.375},
         ]
     )
+
+    # Include Robot Description
+    robot_desc_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(
+                get_package_share_directory('robomop_description'),
+                'launch',
+                'view_robomop.launch.py'
+            )
+        ])
+    )
     
     # Include EKF Launch
     ekf_launch = IncludeLaunchDescription(
@@ -37,6 +48,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         driver_node,
+        robot_desc_launch,
         ekf_launch
     ])
 

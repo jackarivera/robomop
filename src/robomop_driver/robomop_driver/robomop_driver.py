@@ -4,9 +4,13 @@
 # ang-velocity max = 5 rad/s
 # robomop_driver.py
 import rclpy
+import re
 from rclpy.node import Node
 from std_msgs.msg import String, Float32, Float32MultiArray
 from geometry_msgs.msg import Twist
+from geometry_msgs.msg import TwistStamped
+from sensor_msgs.msg import Imu
+from nav_msgs.msg import Odometry
 from robomop_driver.utilities.serial_handler import SerialHandler
 from robomop_driver.utilities.diff_drive_base import DiffDrive
 
@@ -67,6 +71,13 @@ class RobomopDriverNode(Node):
         # Create a timer to check cmd_vel timeout
         self.timer = self.create_timer(0.5, self.cmd_vel_timeout_callback)
 
+
+        # Publisher for IMU data
+        self.imu_publisher = self.create_publisher(Imu, 'robomop/imu_data', 10)
+
+        # Publisher for chassis Odometry
+        self.chassis_odometry_publisher = self.create_publisher(Odometry, 'robomop/chassis_odometry', 10)
+
         self.get_logger().info('Robomop Driver Node has been started.')
 
     def cmd_vel_callback(self, msg: Twist):
@@ -112,6 +123,78 @@ class RobomopDriverNode(Node):
         msg.data = data
         self.serial_in_publisher.publish(msg)
         self.get_logger().info(f"Received from serial: {data}")
+
+        # Define the pattern for parsing
+        pattern = r"RESP\|WHEEL_LEFT\|([-\d.]+)\|WHEEL_RIGHT\|([-\d.]+)\|DISTANCE\|([-\d.]+)\|IMU_AX\|([-\d.]+)\|IMU_AY\|([-\d.]+)\|IMU_AZ\|([-\d.]+)"
+        match = re.match(pattern, data.strip())
+
+        if match:
+            try:
+                # Extract sensor data
+                left_wheel_speed = float(match.group(1))   # in turns/s
+                right_wheel_speed = float(match.group(2))  # in turns/s
+                distance = float(match.group(3))
+                imu_ax = float(match.group(4))            # in m/s²
+                imu_ay = float(match.group(5))            # in m/s²
+                imu_az = float(match.group(6))            # in m/s²
+
+                # Publish IMU data
+                imu_msg = Imu()
+                imu_msg.linear_acceleration.z = imu_az
+
+                # If you have orientation and angular velocity data, populate them here
+                # For now, they are left as default (zeros)
+
+                imu_msg.header.stamp = self.get_clock().now().to_msg()
+                imu_msg.header.frame_id = "imu_link"  # Update as per your TF configuration
+
+                self.imu_publisher.publish(imu_msg)
+
+                # Compute chassis speeds using differential drive kinematics
+                x_vel, angular_vel = self.diff_drive.computeChassisSpeeds(left_wheel_speed, right_wheel_speed)
+
+                self.get_logger().debug(f"Computed chassis speeds - X: {x_vel} m/s, Angular: {angular_vel} rad/s")
+
+                # Create and publish Odometry message
+                odom_msg = Odometry()
+                odom_msg.header.stamp = self.get_clock().now().to_msg()
+                odom_msg.header.frame_id = "odom"  # Update as per your TF configuration
+                odom_msg.child_frame_id = "chassis_icr_link"
+
+                # Pose is not computed here; set to zero or inherit from TF if necessary
+                odom_msg.pose.pose.position.x = 0.0
+                odom_msg.pose.pose.position.y = 0.0
+                odom_msg.pose.pose.position.z = 0.0
+                odom_msg.pose.pose.orientation.x = 0.0
+                odom_msg.pose.pose.orientation.y = 0.0
+                odom_msg.pose.pose.orientation.z = 0.0
+                odom_msg.pose.pose.orientation.w = 1.0
+
+                # Twist data
+                odom_msg.twist.twist.linear.x = x_vel
+                odom_msg.twist.twist.linear.y = 0.0
+                odom_msg.twist.twist.linear.z = 0.0
+                odom_msg.twist.twist.angular.x = 0.0
+                odom_msg.twist.twist.angular.y = 0.0
+                odom_msg.twist.twist.angular.z = angular_vel
+
+                # Pose and Twist covariance can be set to high uncertainty if not used
+                odom_msg.pose.covariance = [1e6]*36
+                odom_msg.twist.covariance = [0.05, 0, 0, 0, 0, 0,
+                                             0, 0.05, 0, 0, 0, 0,
+                                             0, 0, 1e6, 0, 0, 0,
+                                             0, 0, 0, 1e6, 0, 0,
+                                             0, 0, 0, 0, 1e6, 0,
+                                             0, 0, 0, 0, 0, 0.1]
+
+                self.chassis_odometry_publisher.publish(odom_msg)
+                
+
+                self.get_logger().info("Published IMU data and chassis Twist.")
+            except ValueError as e:
+                self.get_logger().error(f"Error parsing sensor data: {e}")
+        else:
+            self.get_logger().warn(f"Failed to parse serial data: {data}")
 
     def destroy_node(self):
         # Send command to stop all motors

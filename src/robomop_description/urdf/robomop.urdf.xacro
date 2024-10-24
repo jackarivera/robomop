@@ -35,7 +35,9 @@
             <inertia ixx="0.006453" ixy="0"  ixz="0" iyy="0.0117" iyz="0" izz="0.015812" />
         </inertial>
     </link>
-    
+
+    <link name="chassis_icr_link" /> <!-- center of rotation link for wheels-->
+    <link name="imu_link" />
     <link name="rl_wheel_link">
         <visual>
             <origin xyz="0 0 0"/>
@@ -162,18 +164,30 @@
         <origin xyz="0 0 ${0.006 + 0.018}"/>
     </joint>
 
-    <joint name="rl_wheel_to_chassis" type="continuous">
+    <joint name="chassis_to_imu" type="fixed">
         <parent link="chassis_link"/>
+        <child link="imu_link"/>
+        <origin xyz="-0.02 0 ${wheel_z_offset + 0.025}"/>
+    </joint>
+
+    <joint name="chassis_to_chassis_icr" type="fixed">
+        <parent link="chassis_link"/>
+        <child link="chassis_icr_link"/>
+        <origin xyz="${wheel_x_offset} 0 0"/>
+    </joint>
+
+    <joint name="rl_wheel_to_chassis" type="continuous">
+        <parent link="chassis_icr_link"/>
         <child link="rl_wheel_link"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="${wheel_x_offset} ${wheel_y_offset} ${wheel_z_offset}" rpy="0 0 0" />
+        <origin xyz="0 ${wheel_y_offset} ${wheel_z_offset}" rpy="0 0 0" />
     </joint>
 
     <joint name="rr_wheel_to_chassis" type="continuous">
-        <parent link="chassis_link"/>
+        <parent link="chassis_icr_link"/>
         <child link="rr_wheel_link"/>
         <axis xyz="0 1 0"/>
-        <origin xyz="${wheel_x_offset} ${-wheel_y_offset - 0.022} ${wheel_z_offset}" rpy="0 0 0" />
+        <origin xyz="0 ${-wheel_y_offset - 0.022} ${wheel_z_offset}" rpy="0 0 0" />
     </joint>
     
     <joint name="right_brush_to_chassis" type="continuous">
