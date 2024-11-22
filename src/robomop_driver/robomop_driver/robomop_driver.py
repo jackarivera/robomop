@@ -24,7 +24,7 @@ class RobomopDriverNode(Node):
         time_since_last_cmd = (current_time - self.last_cmd_vel_time).nanoseconds / 1e9
 
         if time_since_last_cmd > self.cmd_vel_timeout:
-            self.get_logger().warn("cmd_vel timeout. Sending stop command to Arduino.")
+            self.get_logger().debug("cmd_vel timeout. Sending stop command to Arduino.")
             stop_command = "CMD|PUMP_OFF|SET_LEFT_MOTOR|0|SET_RIGHT_MOTOR|0|SET_BRUSH_MOTORS|0,0"
             self.serial_handler.send(stop_command)
             
@@ -102,9 +102,9 @@ class RobomopDriverNode(Node):
         right_speed_clamped = 72 if right_wheel_turns * 24 > 72 else -72 if right_wheel_turns * 24 < -72 else right_wheel_turns * 24
 
         # Prepare Command String
-        if (pump_indicator == 0):
+        if (pump_indicator == 0.0):
             command_str = f"CMD|PUMP_OFF|SET_LEFT_MOTOR|{left_speed_clamped:.4f}|SET_RIGHT_MOTOR|{right_speed_clamped:.4f}|SET_BRUSH_MOTORS|{y_vel: .4f},{y_vel: .4f}"
-        elif (pump_indicator == 1):
+        elif (pump_indicator == 1.0):
             command_str = f"CMD|PUMP_ON|SET_LEFT_MOTOR|{left_speed_clamped:.4f}|SET_RIGHT_MOTOR|{right_speed_clamped:.4f}|SET_BRUSH_MOTORS|{y_vel: .4f},{y_vel: .4f}"
         else:
             command_str = f"CMD|PUMP_OFF|SET_LEFT_MOTOR|{left_speed_clamped:.4f}|SET_RIGHT_MOTOR|{right_speed_clamped:.4f}|SET_BRUSH_MOTORS|{y_vel: .4f},{y_vel: .4f}"
@@ -112,7 +112,7 @@ class RobomopDriverNode(Node):
         # Send command over serial
         self.serial_handler.send(command_str)
 
-        self.get_logger().info(f"Sent command to Arduino: {command_str}")
+        #self.get_logger().info(f"Sent command to Arduino: {command_str}")
 
     def handle_serial_data(self, data: str):
         """
@@ -122,7 +122,7 @@ class RobomopDriverNode(Node):
         msg = String()
         msg.data = data
         self.serial_in_publisher.publish(msg)
-        self.get_logger().info(f"Received from serial: {data}")
+        #self.get_logger().info(f"Received from serial: {data}")
 
         # Define the pattern for parsing
         pattern = r"RESP\|WHEEL_LEFT\|([-\d.]+)\|WHEEL_RIGHT\|([-\d.]+)\|DISTANCE\|([-\d.]+)\|IMU_AX\|([-\d.]+)\|IMU_AY\|([-\d.]+)\|IMU_AZ\|([-\d.]+)"
@@ -137,13 +137,22 @@ class RobomopDriverNode(Node):
                 imu_ax = float(match.group(4))            # in m/s²
                 imu_ay = float(match.group(5))            # in m/s²
                 imu_az = float(match.group(6))            # in m/s²
-
+                imu_ang_vel = 0.0
                 # Publish IMU data
                 imu_msg = Imu()
-                imu_msg.linear_acceleration.z = imu_az
+                #imu_msg.linear_acceleration.z = imu_az
+                if imu_az >= 0.05 or imu_az <= -0.05:        
+                    imu_ang_vel = imu_az; 
 
+                imu_msg.angular_velocity.z = imu_ang_vel
                 # If you have orientation and angular velocity data, populate them here
                 # For now, they are left as default (zeros)
+                # Populate covariance for angular velocity
+                imu_msg.angular_velocity_covariance = [
+                    0.0, 0.0, 0.0,  # Covariance for angular velocity x, y, z
+                    0.0, 0.0, 0.0,  # Covariance for angular velocity y
+                    0.0, 0.0, 0.01  # Covariance for angular velocity z (adjust as needed)
+                ]
 
                 imu_msg.header.stamp = self.get_clock().now().to_msg()
                 imu_msg.header.frame_id = "imu_link"  # Update as per your TF configuration
@@ -178,23 +187,29 @@ class RobomopDriverNode(Node):
                 odom_msg.twist.twist.angular.y = 0.0
                 odom_msg.twist.twist.angular.z = angular_vel
 
+                turn_covar = 0.01
+                if abs(angular_vel) > 0.3:
+                    turn_covar = 0.02
+                else:
+                    turn_covar = 0.01
+
                 # Pose and Twist covariance can be set to high uncertainty if not used
                 odom_msg.pose.covariance = [1e6]*36
-                odom_msg.twist.covariance = [0.05, 0, 0, 0, 0, 0,
-                                             0, 0.05, 0, 0, 0, 0,
+                odom_msg.twist.covariance = [0.01, 0, 0, 0, 0, 0,
+                                             0, 0.01, 0, 0, 0, 0,
                                              0, 0, 1e6, 0, 0, 0,
                                              0, 0, 0, 1e6, 0, 0,
                                              0, 0, 0, 0, 1e6, 0,
-                                             0, 0, 0, 0, 0, 0.1]
+                                             0, 0, 0, 0, 0, turn_covar]
 
                 self.chassis_odometry_publisher.publish(odom_msg)
                 
 
-                self.get_logger().info("Published IMU data and chassis Twist.")
+                self.get_logger().debug("Published IMU data and chassis Twist.")
             except ValueError as e:
-                self.get_logger().error(f"Error parsing sensor data: {e}")
+                self.get_logger().debug(f"Error parsing sensor data: {e}")
         else:
-            self.get_logger().warn(f"Failed to parse serial data: {data}")
+            self.get_logger().debug(f"Failed to parse serial data: {data}")
 
     def destroy_node(self):
         # Send command to stop all motors

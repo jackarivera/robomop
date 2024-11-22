@@ -1,0 +1,4 @@
+# ListMaps.srv
+
+---
+string[] maps  # List of map names

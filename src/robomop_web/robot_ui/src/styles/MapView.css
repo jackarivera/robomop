@@ -1,16 +1,38 @@
+/* MapView.css */
+
 .map-view {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-    height: calc(100vh - 64px); /* Adjust based on navbar height */
-  }
-  
-  #mapCanvas {
-    width: 100%;
-    max-width: 1200px;
-    height: 100%;
-    background-color: #e0e0e0;
-    border: 1px solid #bdbdbd;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.controls-bar > * {
+  margin: 5px;
+}
+
+.controls-bar input {
+  padding: 5px;
+}
+
+.controls-bar button {
+  padding: 5px 10px;
+}
+
+.controls-bar select {
+  padding: 5px;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  width: 400px;
+  height: 400px;
+}
+

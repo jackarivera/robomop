@@ -3,7 +3,10 @@
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
     "@mui/material": "^6.1.0",
+    "eventemitter2": "^6.4.9",
     "react-router-dom": "^6.26.2",
-    "roslib": "^1.4.1"
+    "ros3d": "^1.1.0",
+    "roslib": "^1.4.1",
+    "three": "^0.170.0"
   }
 }

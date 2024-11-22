@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/Navbar.css';
-import { FaMap, FaGamepad, FaCogs, FaCalendarAlt } from 'react-icons/fa';
+import { FaMap, FaGamepad, FaCogs, FaCalendarAlt, FaHome } from 'react-icons/fa';
 
 function Navbar() {
   const location = useLocation();
@@ -14,8 +14,13 @@ function Navbar() {
         ☰
       </label>
       <ul className="navbar-links">
-        <li className={location.pathname === '/' ? 'active' : ''}>
+      <li className={location.pathname === '/' ? 'active' : ''}>
           <Link to="/">
+            <FaHome /> Home
+          </Link>
+        </li>
+        <li className={location.pathname === '/Map' ? 'active' : ''}>
+          <Link to="/Map">
             <FaMap /> Map
           </Link>
         </li>

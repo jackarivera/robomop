@@ -1,1 +1,1 @@
-pyserial:rclpy:std_msgs
+geometry_msgs:nav_msgs:pyserial:rclpy:robomop_navigation:rosidl_default_runtime:slam_toolbox:std_msgs:std_srvs

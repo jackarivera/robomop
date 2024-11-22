@@ -49,6 +49,6 @@ class SerialHandler:
             if self.serial and self.serial.is_open:
                 try:
                     self.serial.write((data + '\n').encode('utf-8'))
-                    print(f"Sent: {data}")
+                    #print(f"Sent: {data}")
                 except serial.SerialException as e:
                     print(f"Serial write error: {e}")

@@ -25,8 +25,8 @@ function ControlPage() {
   const publishCmdVel = useCallback(() => {
     if (cmdVel.current) {
       // Clamp values to their respective ranges
-      const clampedLinearX = Math.max(-100, Math.min(100, linearXRef.current));
-      const clampedAngularZ = Math.max(-500, Math.min(500, angularZRef.current));
+      const clampedLinearX = Math.max(-25, Math.min(25, linearXRef.current));
+      const clampedAngularZ = Math.max(-125, Math.min(125, angularZRef.current));
       const clampedLinearY = Math.max(-50, Math.min(50, brushMotorPercentRef.current));
 
       const twist = new ROSLIB.Message({

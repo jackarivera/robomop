@@ -21,6 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             'robomop_driver = robomop_driver.robomop_driver:main',
+            'robomop_behavior_manager = robomop_driver.robomop_behavior_manager:main',
+            'map_manager = robomop_driver.map_manager:main',
         ],
     },
 )

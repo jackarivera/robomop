@@ -24,6 +24,13 @@ def generate_launch_description():
         ]
     )
 
+    # Robomop Behavior Manager Node
+    map_manager = Node(
+            package='robomop_driver',
+            executable='map_manager',
+            output='screen'
+    )
+
     # Include Robot Description
     robot_desc_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
@@ -48,6 +55,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         driver_node,
+        map_manager,
         robot_desc_launch,
         ekf_launch
     ])
